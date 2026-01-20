@@ -2,7 +2,8 @@ import React from 'react';
 import { IoCalendarSharp } from 'react-icons/io5';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { setMonthIndex } from '../store/calendarSlice';
+import { setMonthIndex, toggleSidebar } from '../store/calendarSlice';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import dayjs from 'dayjs';
 
 const CalendarHeader = () => {
@@ -21,6 +22,11 @@ const CalendarHeader = () => {
   };
   return (
     <header className="px-4 py-3 flex items-center border-b border-gray-200">
+      {/* hamburger  */}
+      <GiHamburgerMenu
+        className="text-2xl text-gray-600 mr-2"
+        onClick={() => dispatch(toggleSidebar())}
+      />
       {/* Logo */}
       <div className="flex items-center">
         <IoCalendarSharp className="text-4xl text-blue-600" />

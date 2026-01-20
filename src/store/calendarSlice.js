@@ -14,6 +14,7 @@ const initialState = {
   selectedEvent: null,
   labels: [],
   savedEvents: initEvents(),
+  showSidebar: true,
 };
 
 const calendarSlice = createSlice({
@@ -92,6 +93,11 @@ const calendarSlice = createSlice({
         return lbl.label === action.payload.label ? action.payload : lbl;
       });
     },
+
+    //sidebar in main page
+    toggleSidebar: (state) => {
+      state.showSidebar = !state.showSidebar;
+    },
   },
 });
 
@@ -106,6 +112,7 @@ export const {
   deleteEvent,
   setLabels,
   updateLabel,
+  toggleSidebar,
 } = calendarSlice.actions;
 
 export default calendarSlice.reducer;
