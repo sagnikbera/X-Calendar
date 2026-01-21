@@ -6,13 +6,18 @@ const initEvents = () => {
   return storageEvents ? JSON.parse(storageEvents) : [];
 };
 
+const initLabels = () => {
+  const storageLabels = localStorage.getItem('savedLabels');
+  return storageLabels ? JSON.parse(storageLabels) : [];
+};
+
 const initialState = {
   monthIndex: dayjs().month(),
   smallCalendarMonth: null,
   daySelected: dayjs().valueOf(),
   showEventModal: false,
   selectedEvent: null,
-  labels: [],
+  labels: initLabels(),
   savedEvents: initEvents(),
   showSidebar: true,
 };
@@ -92,6 +97,7 @@ const calendarSlice = createSlice({
       state.labels = state.labels.map((lbl) => {
         return lbl.label === action.payload.label ? action.payload : lbl;
       });
+      localStorage.setItem('savedLabels', JSON.stringify(state.labels));
     },
 
     //sidebar in main page
