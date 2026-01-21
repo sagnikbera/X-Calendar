@@ -22,7 +22,7 @@ const Tags = () => {
             onChange={() => dispatch(updateTag({ tag, checked: !checked }))}
             className="form-checkbox h-4 w-4 text-blue-600 rounded"
           />
-          <span className="ml-2 text-gray-700 text-sm capitalize">{tag}</span>
+          <span className="ml-2 text-gray-700 text-sm capitalize font-semibold">{tag}</span>
         </label>
       ))}
     </div>
