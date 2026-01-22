@@ -28,6 +28,8 @@ const labelsClasses = [
 
 const EventModal = () => {
   const selectedEvent = useSelector((state) => state.calendar.selectedEvent);
+  const daySelected = useSelector((state) => state.calendar.daySelected);
+  const dispatch = useDispatch();
   const [tagInput, setTagInput] = useState('');
   const [tags, setTagsList] = useState([]);
 
@@ -38,20 +40,25 @@ const EventModal = () => {
   const [description, setDescription] = useState(
     selectedEvent ? selectedEvent.description : ''
   );
-  const daySelected = useSelector((state) => state.calendar.daySelected);
-  const dispatch = useDispatch();
+  const [endDate, setEndDate] = useState(
+    dayjs(daySelected).format('YYYY-MM-DD')
+  );
 
   useEffect(() => {
     if (selectedEvent) {
       setTagsList(selectedEvent.tags || []);
       setSelectedLabel(selectedEvent.label);
       setTitle(selectedEvent.title);
-      setDescription(selectedEvent.description);
+      setDescription(selectedEvent.description || '');
+      setEndDate(
+        dayjs(selectedEvent.endDate || selectedEvent.day).format('YYYY-MM-DD')
+      );
     } else {
       setTagsList([]);
       setSelectedLabel(labelsClasses[0]);
       setTitle('');
       setDescription('');
+      setEndDate(dayjs(daySelected).format('YYYY-MM-DD'));
     }
   }, [selectedEvent]);
 
@@ -75,6 +82,7 @@ const EventModal = () => {
       label: selectedLabel,
       tags: [...tags],
       day: selectedEvent ? selectedEvent.day : daySelected,
+      endDate: dayjs(endDate).valueOf(),
       id: selectedEvent ? selectedEvent.id : Date.now(), // in case of edit id should be same
     };
 
@@ -125,9 +133,26 @@ const EventModal = () => {
 
             {/* schedule */}
             <MdOutlineSchedule className="text-gray-500 text-2xl justify-self-center" />
-            <p className="text-gray-600 font-medium text-sm md:text-base">
-              {dayjs(daySelected).format('dddd, MMMM DD')}
-            </p>
+            <div className="flex flex-col gap-2">
+              <p className="text-gray-600 font-medium text-sm">
+                Start:{' '}
+                {dayjs(selectedEvent ? selectedEvent.day : daySelected).format(
+                  'dddd, MMMM DD'
+                )}
+              </p>
+              {/* <--- end date */}
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-400 font-bold">
+                  Ends on:
+                </span>
+                <input
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  className="text-xs border-b border-gray-300 focus:outline-none text-blue-600 font-bold cursor-pointer"
+                />
+              </div>
+            </div>
 
             {/* description */}
             <RiMenu3Fill className="text-gray-500 text-2xl justify-self-center" />
@@ -174,6 +199,7 @@ const EventModal = () => {
             {/* labels */}
             <FaRegBookmark className="text-gray-500 text-2xl justify-self-center" />
             <div className="flex flex-wrap gap-2">
+              {/* avoid conflic */}
               {labelsClasses.map((col, i) => (
                 <span
                   key={i}
@@ -185,6 +211,16 @@ const EventModal = () => {
                   )}
                 </span>
               ))}
+              {/* (Hex Code)  */}
+              {selectedEvent?.label.startsWith('#') &&
+                !labelsClasses.includes(selectedLabel) && (
+                  <span
+                    className="w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center scale-110"
+                    style={{ backgroundColor: selectedLabel }}
+                  >
+                    <SiTicktick className="text-white text-xs md:text-sm" />
+                  </span>
+                )}
             </div>
           </div>
         </div>

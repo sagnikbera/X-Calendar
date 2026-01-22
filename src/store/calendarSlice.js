@@ -1,9 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import dayjs from 'dayjs';
+import { instructorEvents } from '../data/data';
 
 const initEvents = () => {
   const storageEvents = localStorage.getItem('savedEvents');
-  return storageEvents ? JSON.parse(storageEvents) : [];
+  const parsedEvent = storageEvents ? JSON.parse(storageEvents) : [];
+
+  const processedEvents = instructorEvents.map((event, index) => ({
+    id: `ext-${index}`,
+    title: event.title,
+    description: 'JSON feed',
+    day: dayjs(event.start).valueOf(),
+    endDate: dayjs(event.end).valueOf(),
+    label: event.color,
+    tags: [],
+  }));
+
+  return [...processedEvents, ...parsedEvent];
 };
 
 const initLabels = () => {

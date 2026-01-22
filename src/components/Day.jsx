@@ -18,8 +18,20 @@ const Day = ({ day, rowIdx }) => {
 
   useEffect(() => {
     const events = savedEvents.filter((event) => {
-      const currentLabel = labels.find((lbl) => lbl.label === event.label);
+      const start = dayjs(event.day).startOf('day');
+      const end = event.endDate
+        ? dayjs(event.endDate).endOf('day')
+        : start.endOf('day');
 
+      const isWithinRange =
+        (day.isSame(start, 'day') || day.isAfter(start, 'day')) &&
+        (day.isSame(end, 'day') || day.isBefore(end, 'day'));
+
+      //filter label
+      const currentLabel = labels.find((lbl) => lbl.label === event.label);
+      const isLabelVisible = currentLabel ? currentLabel.checked : true;
+
+      //filter tag
       const eventTags = event.tags || [];
       const isTagVisible =
         eventTags.length === 0 ||
@@ -28,11 +40,7 @@ const Day = ({ day, rowIdx }) => {
           return foundTag ? foundTag.checked : true;
         });
 
-      return (
-        dayjs(event.day).format('DD-MM-YY') === day.format('DD-MM-YY') &&
-        (currentLabel ? currentLabel.checked : true) &&
-        isTagVisible
-      );
+      return isWithinRange && isLabelVisible && isTagVisible;
     });
     setDayEvents(events);
   }, [savedEvents, day, labels, tags]);
@@ -86,7 +94,13 @@ const Day = ({ day, rowIdx }) => {
               dispatch(setSelectedEvent(event));
               dispatch(toggleEventModal());
             }}
-            className={`${event.label} text-white p-1 mr-1 text-[10px] md:text-sm rounded mb-1 truncate font-bold shadow-sm`}
+            // hex color code
+            style={{
+              backgroundColor: event.label.startsWith('#') ? event.label : '',
+              color: 'white',
+            }}
+            // Tailwind class
+            className={`${!event.label.startsWith('#') ? event.label : ''} p-1 mr-1 text-[10px] md:text-sm rounded mb-1 truncate font-bold shadow-sm`}
           >
             {/* { console.log(event.label)} */}
             {event.title}

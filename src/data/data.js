@@ -1,0 +1,80 @@
+export const instructorEvents = [
+  {
+    start: '2026-01-26T08:00:00.000Z',
+    end: '2026-01-29T17:00:00.000Z',
+    title: 'Business of Software Conference',
+    color: '#ff6d42',
+  },
+  {
+    start: '2026-01-24T12:00:00.000Z',
+    end: '2026-01-25T20:00:00.000Z',
+    title: 'Friends binge marathon',
+    color: '#7bde83',
+  },
+  {
+    start: '2026-01-31T12:00:00.000Z',
+    end: '2026-02-01T20:00:00.000Z',
+    title: 'Friends binge marathon',
+    color: '#7bde83',
+  },
+  {
+    start: '2026-01-20T08:00:00.000Z',
+    end: '2026-01-20T09:00:00.000Z',
+    title: 'Product team mtg.',
+    color: '#913aa7',
+  },
+  {
+    start: '2026-01-20T10:00:00.000Z',
+    end: '2026-01-20T11:00:00.000Z',
+    title: 'Green box to post office',
+    color: '#6e7f29',
+  },
+  {
+    start: '2026-01-20T13:00:00.000Z',
+    end: '2026-01-20T14:00:00.000Z',
+    title: "Lunch @ Butcher's",
+    color: '#bb0000',
+  },
+  {
+    start: '2026-01-20T15:00:00.000Z',
+    end: '2026-01-20T16:00:00.000Z',
+    title: 'Status Update Meeting',
+    color: '#00aabb',
+  },
+  {
+    start: '2026-01-20T09:00:00.000Z',
+    end: '2026-01-20T10:00:00.000Z',
+    title: 'Board meeting',
+    color: '#cfc014',
+  },
+  {
+    start: '2026-01-20T19:00:00.000Z',
+    end: '2026-01-20T21:00:00.000Z',
+    title: 'Pizza Night',
+    color: '#d7be0d',
+  },
+  {
+    start: '2026-01-20T17:00:00.000Z',
+    end: '2026-01-20T18:00:00.000Z',
+    title: 'Clever Conference',
+    color: '#a71111',
+  },
+  {
+    start: '2026-01-19T07:45:00.000Z',
+    end: '2026-01-19T09:00:00.000Z',
+    title: 'Quick mtg. with Martin',
+    color: '#de3d83',
+  },
+  {
+    start: '2026-01-08T08:30:00.000Z',
+    end: '2026-01-08T09:30:00.000Z',
+    title: 'Product team mtg.',
+    color: '#f67944',
+  },
+  {
+    start: '2026-01-08T10:00:00.000Z',
+    end: '2026-01-08T10:45:00.000Z',
+    title: 'Stakeholder mtg.',
+    color: '#a144f6',
+  },
+];
